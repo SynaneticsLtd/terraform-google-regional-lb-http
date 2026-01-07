@@ -183,7 +183,7 @@ resource "google_compute_region_target_http_proxy" "default" {
   name    = "${var.name}-regional-http-proxy"
   project = var.project_id
   region  = var.region
-  url_map = var.https_redirect == false ? local.url_map : join("", google_compute_url_map.https_redirect[*].self_link)
+  url_map = var.https_redirect == false ? local.url_map : join("", google_compute_region_url_map.https_redirect[*].self_link)
 }
 
 # HTTPS proxy when ssl is true
@@ -237,7 +237,7 @@ resource "google_compute_managed_ssl_certificate" "default" {
   }
 }
 
-resource "google_compute_url_map" "https_redirect" {
+resource "google_compute_region_url_map" "https_redirect" {
   project = var.project_id
   count   = var.https_redirect ? 1 : 0
   name    = "${var.name}-https-redirect"
