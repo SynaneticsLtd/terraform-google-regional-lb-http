@@ -7,3 +7,6 @@
 .idea
 .kitchen
 credentials.json
+
+*.iml
+.direnv

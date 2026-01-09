@@ -1,0 +1,26 @@
+{
+  "version": "1",
+  "sources": {
+    "Anamnesis": {
+      "type": "GitHub",
+      "fetchType": "tarball",
+      "frozen": true,
+      "owner": "drakon64",
+      "repo": "Anamnesis",
+      "branch": "main",
+      "revision": "22c9dc418137b40d903103eeca96f83b543d1e61",
+      "url": "https://github.com/drakon64/Anamnesis/archive/22c9dc418137b40d903103eeca96f83b543d1e61.tar.gz",
+      "hash": "sha256-I3otfzlZOnUgDSgdjxhovMz6Qjkjj+3h10UhsAOKSPg="
+    },
+    "nixpkgs": {
+      "type": "GitHub",
+      "fetchType": "tarball",
+      "owner": "NixOS",
+      "repo": "nixpkgs",
+      "branch": "nixpkgs-unstable",
+      "revision": "16c7794d0a28b5a37904d55bcca36003b9109aaa",
+      "url": "https://github.com/NixOS/nixpkgs/archive/16c7794d0a28b5a37904d55bcca36003b9109aaa.tar.gz",
+      "hash": "sha256-fFUnEYMla8b7UKjijLnMe+oVFOz6HjijGGNS1l7dYaQ="
+    }
+  }
+}
