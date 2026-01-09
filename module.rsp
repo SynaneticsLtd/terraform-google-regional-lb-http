@@ -1,0 +1,7 @@
+--namespace shared
+--name terraform-google-regional-lb-http
+--system google
+--summary "Creates a regional HTTP load balancer using forwarding rules"
+--bucket synanetics-opentofu-registry
+--database anamnesis
+--project terraform-synanetics
