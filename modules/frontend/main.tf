@@ -24,12 +24,20 @@ locals {
   ipv6_address        = var.create_ipv6_address ? join("", google_compute_address.default_ipv6[*].address) : var.ipv6_address
 
   # Create a map with hosts as keys and empty lists as initial values
-  hosts = toset([for service in var.url_map_input : service.host])
+  hosts = toset([for service in var.url_map_input : service.host if service.backend_service != null])
+  redirects = toset([for service in var.url_map_input : service.host if service.url_redirect != null])
   backend_services_by_host = {
     for host in local.hosts :
     host => {
       for s in var.url_map_input :
       s.path => s.backend_service if s.host == host
+    }
+  }
+  url_redirects_by_host = {
+    for redirect in local.redirects :
+    redirect => {
+      for s in var.url_map_input :
+      s.path => s.url_redirect if s.host == redirect
     }
   }
 
@@ -154,7 +162,7 @@ resource "google_compute_region_url_map" "default" {
   default_service = lookup(lookup(local.backend_services_by_host, "*", {}), "/*", local.first_backend_service)
 
   dynamic "host_rule" {
-    for_each = local.backend_services_by_host
+    for_each = merge(local.backend_services_by_host, local.url_redirects_by_host)
     content {
       hosts        = [host_rule.key]
       path_matcher = host_rule.key == "*" ? "default" : replace(host_rule.key, ".", "")
@@ -172,6 +180,24 @@ resource "google_compute_region_url_map" "default" {
         content {
           paths   = [path_rule.key]
           service = path_rule.value
+        }
+      }
+    }
+  }
+
+  dynamic "path_matcher" {
+    for_each = local.url_redirects_by_host
+    content {
+      name = path_matcher.key == "*" ? "default" : replace(path_matcher.key, ".", "")
+
+      dynamic "default_url_redirect" {
+        for_each = path_matcher.value
+        content {
+          host_redirect          = default_url_redirect.value.host_redirect
+          https_redirect         = default_url_redirect.value.https_redirect
+          path_redirect          = default_url_redirect.value.path_redirect
+          redirect_response_code = default_url_redirect.value.redirect_response_code
+          strip_query            = default_url_redirect.value.strip_query
         }
       }
     }
