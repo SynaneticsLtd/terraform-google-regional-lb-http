@@ -10,7 +10,6 @@ pkgs.mkShellNoCC {
     lon
     nixfmt-rfc-style
     opentofu
-    trivy
   ];
 
   # Non-default shells used by GitHub Actions, selected with `nix-shell -A {{ key }}`
@@ -28,11 +27,6 @@ pkgs.mkShellNoCC {
     # nix-shell used by the `registry` workflow
     registry = pkgs.mkShellNoCC {
       packages = [ (pkgs.callPackage lock.Anamnesis { }).client ];
-    };
-
-    # nix-shell used by the `ci` workflow
-    trivy = pkgs.mkShellNoCC {
-      packages = [ pkgs.trivy ];
     };
   };
 }
