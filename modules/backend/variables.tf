@@ -220,6 +220,11 @@ variable "iap_config" {
   default = { enable = false }
 }
 
+variable "logging_enabled" {
+  type = bool
+  default = false
+}
+
 check "backend_neg_type_exclusive" {
   assert {
     condition     = length(var.serverless_neg_backends) == 0 || length(var.psc_neg_backends) == 0
