@@ -191,17 +191,13 @@ resource "google_compute_firewall" "allow_proxy" {
   source_ranges = var.firewall_source_ranges
   target_tags   = length(var.target_tags) > 0 ? var.target_tags : null
 
-  allow {
-    ports    = ["443"]
-    protocol = "tcp"
-  }
-  allow {
-    ports    = ["80"]
-    protocol = "tcp"
-  }
-  allow {
-    ports    = ["8080"]
-    protocol = "tcp"
+  dynamic "allow" {
+    for_each = var.ports
+
+    content {
+      ports = allow.value.ports
+      protocol = allow.value.protocol
+    }
   }
 }
 

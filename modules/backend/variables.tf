@@ -225,6 +225,25 @@ variable "logging_enabled" {
   default = false
 }
 
+variable "ports" {
+  type = set(object({
+    ports = set(number)
+    protocol = string
+  }))
+  default = [{
+    ports = ["80"]
+    protocol = "tcp"
+  },
+    {
+      ports = ["443"]
+      protocol = "tcp"
+    },
+    {
+      ports = ["8080"]
+      protocol = "tcp"
+    }]
+}
+
 check "backend_neg_type_exclusive" {
   assert {
     condition     = length(var.serverless_neg_backends) == 0 || length(var.psc_neg_backends) == 0
