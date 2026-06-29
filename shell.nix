@@ -6,9 +6,8 @@ in
 pkgs.mkShellNoCC {
   # `with pkgs;` prepends `pkgs.` to every element in the list
   packages = with pkgs; [
-    graphviz
     lon
-    nixfmt-rfc-style
+    nixfmt
     opentofu
   ];
 
