@@ -195,7 +195,7 @@ resource "google_compute_firewall" "allow_proxy" {
     for_each = var.ports
 
     content {
-      ports = allow.value.ports
+      ports    = allow.value.ports
       protocol = allow.value.protocol
     }
   }

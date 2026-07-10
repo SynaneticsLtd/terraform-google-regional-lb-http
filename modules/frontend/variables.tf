@@ -70,7 +70,7 @@ variable "url_map_input" {
     host            = string
     path            = string
     backend_service = optional(string)
-    url_redirect    = optional(object({
+    url_redirect = optional(object({
       host_redirect          = string
       https_redirect         = optional(bool)
       path_redirect          = string

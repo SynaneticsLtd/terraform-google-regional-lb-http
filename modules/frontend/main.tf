@@ -24,7 +24,7 @@ locals {
   ipv6_address        = var.create_ipv6_address ? join("", google_compute_address.default_ipv6[*].address) : var.ipv6_address
 
   # Create a map with hosts as keys and empty lists as initial values
-  hosts = toset([for service in var.url_map_input : service.host if service.backend_service != null])
+  hosts     = toset([for service in var.url_map_input : service.host if service.backend_service != null])
   redirects = toset([for service in var.url_map_input : service.host if service.url_redirect != null])
   backend_services_by_host = {
     for host in local.hosts :

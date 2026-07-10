@@ -222,21 +222,21 @@ variable "iap_config" {
 
 variable "ports" {
   type = set(object({
-    ports = set(number)
+    ports    = set(number)
     protocol = string
   }))
   default = [{
-    ports = ["80"]
+    ports    = ["80"]
     protocol = "tcp"
-  },
+    },
     {
-      ports = ["443"]
+      ports    = ["443"]
       protocol = "tcp"
     },
     {
-      ports = ["8080"]
+      ports    = ["8080"]
       protocol = "tcp"
-    }]
+  }]
 }
 
 check "backend_neg_type_exclusive" {
