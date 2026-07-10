@@ -220,11 +220,6 @@ variable "iap_config" {
   default = { enable = false }
 }
 
-variable "logging_enabled" {
-  type = bool
-  default = false
-}
-
 variable "ports" {
   type = set(object({
     ports = set(number)

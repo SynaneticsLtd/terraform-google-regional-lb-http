@@ -42,7 +42,7 @@ resource "google_compute_region_backend_service" "default" {
   health_checks = var.health_check != null ? google_compute_region_health_check.default[*].self_link : null
 
   log_config {
-    enable = var.logging_enabled
+    enable = true
   }
 
   dynamic "backend" {
